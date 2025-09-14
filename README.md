@@ -25,6 +25,19 @@
 ![Repository Screenshot 4](assets/Repo4.png)
 ![Website Screenshot 3](assets/Website3.png)
 
+
+
+## Repository + Website Screenshots (Activity 5)
+
+![Repository Screenshot 5](assets/Repo5.png)
+### Load More Button
+![Website Screenshot 4](assets/Website4.png)
+### Show Less Button
+![Website Screenshot 5](assets/Website5.png)
+
+
+
+
 This repository is a clone of [varadbhogayata.github.io](https://github.com/varadbhogayata/varadbhogayata.github.io).
 
 ---
