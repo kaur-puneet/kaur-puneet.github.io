@@ -95,16 +95,16 @@
   -webkit-border-radius: 5px;
 }
 
-/* .readme:hover{
+ .readme:hover{
   color: white;
-  background-color: #00796b;
-} */
+  background-color: #4a6aae;
+} 
 
 .contactme {
   position: relative;
   padding: 11px 35px;
   background: none;
-  color: #fff;
+  color: #ffffff;
   border: 2px solid #fff;
   font-weight: 600;
   font-size: 15px;

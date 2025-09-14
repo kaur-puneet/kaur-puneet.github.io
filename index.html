@@ -318,79 +318,129 @@
 </section>
 
 
- <!-- Fourth Section: Projects -->
+<!-- Fourth Section: Projects -->
 <section id="projects" class="section scrollspy">
   <h3 class="page-title white-text teal">Projects</h3>
   <div class="container">
-    <div class="row">
+    <!-- Dynamic projects container -->
+    <div class="row" id="projects-container"></div>
 
-      <!-- Geolocation Classification -->
-      <div class="col s12 m6 l4">
-        <div class="card medium">
-          <div class="card-content">
-            <span class="card-title activator teal-text hoverline">Geolocation Classification<i class="mdi-navigation-more-vert right"></i></span>
-            <p>
-              Developed a model to classify street view images by geolocation using transfer learning and CNNs.
-            </p>
-          </div>
-          <div class="card-reveal">
-            <span class="card-title brown-text"><small>Accomplishments</small><i class="mdi-navigation-close right"></i></span>
-            <ul>
-              <li>Worked in a team of four using GoogLeNet pre-trained on Places205 in PyTorch.</li>
-              <li>Fine-tuned on Street View Static API data with data augmentation.</li>
-              <li>Integrated CNN feature extraction with SVM for 4-city classification; improved validation accuracy by 12% over AlexNet baseline.</li>
-              <li>Achieved testing accuracy 2.32× random guessing; project graded A+.</li>
-              <li><b>Tools:</b> Python, PyTorch, CNNs, SVM, Google Colab</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Signature Forgery Detection -->
-      <div class="col s12 m6 l4">
-        <div class="card medium">
-          <div class="card-content">
-            <span class="card-title activator teal-text hoverline">Signature Forgery Detection<i class="mdi-navigation-more-vert right"></i></span>
-            <p>
-              Built a CNN model to detect signature forgery with high accuracy.
-            </p>
-          </div>
-          <div class="card-reveal">
-            <span class="card-title brown-text"><small>Accomplishments</small><i class="mdi-navigation-close right"></i></span>
-            <ul>
-              <li>Developed in Python using TensorFlow/Keras; achieved 90% test accuracy after fine-tuning.</li>
-              <li>Preprocessed Kaggle dataset using NumPy.</li>
-              <li>Contributed to full-stack app development using React.</li>
-              <li><b>Tools:</b> Python, TensorFlow, Keras, NumPy, React</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- StreetSmart -->
-      <div class="col s12 m6 l4">
-        <div class="card medium">
-          <div class="card-content">
-            <span class="card-title activator teal-text hoverline">StreetSmart<i class="mdi-navigation-more-vert right"></i></span>
-            <p>
-              GIS application for mapping and navigation, similar to Google Maps.
-            </p>
-          </div>
-          <div class="card-reveal">
-            <span class="card-title brown-text"><small>Accomplishments</small><i class="mdi-navigation-close right"></i></span>
-            <ul>
-              <li>Developed in C++ with GTK/EZGL in a team of three, optimizing UX and collaboration via Git.</li>
-              <li>Used STL data structures (Vectors, Maps, Sets) to manage OpenStreetMap geographic datasets.</li>
-              <li>Implemented Dijkstra’s and A* algorithms for optimized pathfinding.</li>
-              <li><b>Tools:</b> C++, GTK/EZGL, STL, OpenStreetMap API</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
+    <!-- Buttons -->
+    <div class="text-center">
+      <button id="load-more" class="readme">Load More</button>
+      <button id="show-less" class="readme" style="display:none;">Show Less</button>
     </div>
   </div>
 </section>
+
+<script>
+  const projects = [
+    {
+      title: "Geolocation Classification",
+      description: "Developed a model to classify street view images by geolocation using transfer learning and CNNs.",
+      accomplishments: [
+        "Worked in a team of four using GoogLeNet pre-trained on Places205 in PyTorch.",
+        "Fine-tuned on Street View Static API data with data augmentation.",
+        "Integrated CNN feature extraction with SVM for 4-city classification; improved validation accuracy by 12% over AlexNet baseline.",
+        "Achieved testing accuracy 2.32× random guessing; project graded A+."
+      ],
+      tools: "Python, PyTorch, CNNs, SVM, Google Colab"
+    },
+    {
+      title: "Signature Forgery Detection",
+      description: "Built a CNN model to detect signature forgery with high accuracy.",
+      accomplishments: [
+        "Developed in Python using TensorFlow/Keras; achieved 90% test accuracy after fine-tuning.",
+        "Preprocessed Kaggle dataset using NumPy.",
+        "Contributed to full-stack app development using React."
+      ],
+      tools: "Python, TensorFlow, Keras, NumPy, React"
+    },
+    {
+      title: "StreetSmart",
+      description: "GIS application for mapping and navigation, similar to Google Maps.",
+      accomplishments: [
+        "Developed in C++ with GTK/EZGL in a team of three, optimizing UX and collaboration via Git.",
+        "Used STL data structures (Vectors, Maps, Sets) to manage OpenStreetMap geographic datasets.",
+        "Implemented Dijkstra’s and A* algorithms for optimized pathfinding."
+      ],
+      tools: "C++, GTK/EZGL, STL, OpenStreetMap API"
+    },
+    {
+      title: "Fit-Sim Workout Simulator",
+      description: "Spearheaded development of Fit-Sim, a graphic workout simulator on the DE1-SOC FPGA board.",
+      accomplishments: [
+        "Developed a C-based interactive User Interface (UI) with VGA graphics for immersive workout simulations.",
+        "Implemented responsive I/O systems with switches, keys, and HEX display for real-time feedback.",
+        "Facilitated multiple workout types including push-ups, running, jump-roping, and planks.",
+      ],
+      tools: "C, DE1-SOC FPGA, VGA Graphics"
+    },
+    {
+      title: "COVID Mitigation on TTC Subways",
+      description: "Employed engineering design skills to propose solutions reducing the spread of COVID on TTC subways.",
+      accomplishments: [
+        "Proposed 3 feasible solutions for a real client, Left Turn Right Turn.",
+        "Researched and documented project scope, costs, stakeholders, and timelines.",
+        "Used Gantt charts and MS Project to organize timelines and meet deadlines.",
+      ],
+      tools: "Project Management, MS Project, Engineering Design"
+    }
+  ];
+
+  let currentIndex = 3; // Start with 3 visible
+  const projectsContainer = document.getElementById("projects-container");
+  const loadMoreBtn = document.getElementById("load-more");
+  const showLessBtn = document.getElementById("show-less");
+
+  function createProjectCard(project) {
+    const cardDiv = document.createElement("div");
+    cardDiv.className = "col s12 m6 l4";
+    cardDiv.innerHTML = `
+      <div class="card medium">
+        <div class="card-content">
+          <span class="card-title activator teal-text hoverline">${project.title}<i class="mdi-navigation-more-vert right"></i></span>
+          <p>${project.description}</p>
+        </div>
+        <div class="card-reveal">
+          <span class="card-title brown-text"><small>Accomplishments</small><i class="mdi-navigation-close right"></i></span>
+          <ul>
+            ${project.accomplishments.map(a => `<li>${a}</li>`).join("")}
+          </ul>
+          <p><b>Tools:</b> ${project.tools}</p>
+        </div>
+      </div>
+    `;
+    return cardDiv;
+  }
+
+  function displayProjects(num = 3) {
+    projectsContainer.innerHTML = "";
+    const endIndex = Math.min(currentIndex + num, projects.length);
+    for (let i = 0; i < endIndex; i++) {
+      projectsContainer.appendChild(createProjectCard(projects[i]));
+    }
+    // Toggle buttons
+    loadMoreBtn.style.display = currentIndex + num >= projects.length ? "none" : "inline-block";
+    showLessBtn.style.display = currentIndex + num > 3 ? "inline-block" : "none";
+  }
+
+  // Initially show first 3 projects
+  displayProjects(0);
+
+  loadMoreBtn.addEventListener("click", () => {
+    currentIndex += 3;
+    if (currentIndex > projects.length) currentIndex = projects.length;
+    displayProjects(0);
+  });
+
+  showLessBtn.addEventListener("click", () => {
+    currentIndex = 3;
+    displayProjects(0);
+  });
+</script>
+
+
 
 
     <!-- Fifth Section: Skills -->
